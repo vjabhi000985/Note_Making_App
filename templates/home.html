@@ -4,18 +4,111 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Anonymous Notes App</title>
+    <style>
+        .header{
+            padding: 20px;
+            text-align: center;
+        }
+        button{
+            padding: 0.6em 1.8em;
+            border-radius: 10px;
+            border: 2px solid #f4f7f7;
+            position: relative;
+            overflow: hidden;
+            background-color: blue;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: .3s;
+            z-index: 1;
+            font-family: inherit;
+            color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        button:hover{
+            border: 2px solid #1a78d6;
+            background-color: white;
+            color: #2cb6c0;
+        }
+
+        input {
+            border-radius: 10px;
+            outline: 2px solid #13c0f0;
+            border: 0;
+            background-color: rgb(245, 245, 245);
+            outline-offset: 3px;
+            padding: 10px 1rem;
+            width: 300px;
+            font-weight: bold ;
+            margin-right: 10px;
+            transition: width 0.4s ease-in-out;
+        }
+  
+        input:focus {
+            width: 60%;
+        }
+
+        .note-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .note{
+            width: calc(20% - 20px);
+            height: 120px;
+            border: 1px solid border white;
+            margin: 0 10px 30px 10px;
+            padding: 10px;
+            overflow: auto;
+            box-sizing: border-box;
+            border-radius: 10px;
+            background-color: blue;
+            color: #f1f1f1;
+            font-weight: 20px;
+        }
+    </style>
 </head>
 <body>
-    <form action="">
-        <input type="text" name="note" placeholder="Enter a note">
+    <div class="header">
+        <h3 style="color:blue;">Anonymous Note Taking App</h3>
+        <form action="/add_note" method="post">
+        <input type="text" name="note" placeholder="Please Enter Your Text...">
         <button>Add Note</button>
     </form>
 
-    <ul>
+    </div>
+    <!-- <ul>
     {% for note in notes%}
         <li>{{ note }}</li>
     {% endfor %}
-    </ul>
+    </ul> -->
+
+    <div class="note-container">
+        {% for note in notes %}
+        <div class="note">
+            <p>{{note.text}}</p>
+            <form action="/delete_note/{{loop.index0 }}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- <ul>
+        {% for note in notes %}
+            <li>
+                <p>{{ note.text }}</p>
+                <form action="/delete_note/{{loop.index0 }}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul> -->
 </body>
 </html>
